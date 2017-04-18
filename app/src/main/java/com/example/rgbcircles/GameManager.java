@@ -5,6 +5,7 @@ import android.graphics.Paint;
 
 import java.util.ArrayList;
 
+// тестовый текст для коммита
 
 public class GameManager {
     public static final int MAX_CIRCLES = 10;
