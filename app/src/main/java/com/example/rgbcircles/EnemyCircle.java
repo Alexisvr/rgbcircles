@@ -53,5 +53,11 @@ public class EnemyCircle extends SimpleCircle {
     }
 
     private void checkBounds() {
+        if (x > GameManager.getWidth() || x < 0) {
+            dx = -dx;
+        }
+        if (y > GameManager.getHight() || y < 0) {
+            dy = -dy;
+        }
     }
 }

@@ -65,7 +65,23 @@ public class GameManager {
 
     public void onTouchEwent(int x, int y) {
         mainCircle.moveMainCircleWhenTouchAt(x, y);
+        checkCollision();
         moveCircles();
+    }
+
+    private void checkCollision() {
+        for (EnemyCircle circle : circles) {
+            if (mainCircle.isIntersect(circle)) {
+                gameEnd();
+            }
+        }
+
+    }
+
+    private void gameEnd() {
+        mainCircle.initRadius();
+        initEnemyCircle();
+        canvasView.redraw();
     }
 
     private void moveCircles() {
