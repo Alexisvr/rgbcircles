@@ -4,25 +4,30 @@ import android.graphics.Color;
 
 import java.util.Random;
 
-/**
- * Created by vorobev on 18.04.2017.
- */
+
 public class EnemyCircle extends SimpleCircle {
     public static final int FROM_RADIUS = 10;
     public static final int TO_RADIUS = 100;
     public static final int EMEMY_COLOR = Color.RED;
     public static final int FOOD_COLOR = Color.rgb(0, 200, 0);
+    public static final int RANDOM_SPREED = 10;
+    private int dx;
+    private int dy;
 
-    public EnemyCircle(int x, int y, int radius) {
+    public EnemyCircle(int x, int y, int radius, int dx, int dy) {
         super(x, y, radius);
+        this.dx = dx;
+        this.dy = dy;
     }
 
     public static EnemyCircle getRandomCircle() {
         Random random = new Random();
         int x = random.nextInt(GameManager.getWidth());
         int y = random.nextInt(GameManager.getHight());
+        int dx = 1 + random.nextInt(RANDOM_SPREED);
+        int dy = 1 + random.nextInt(RANDOM_SPREED);
         int raduis = FROM_RADIUS + random.nextInt(TO_RADIUS - FROM_RADIUS);
-        EnemyCircle enemyCircle = new EnemyCircle(x, y, raduis);
+        EnemyCircle enemyCircle = new EnemyCircle(x, y, raduis, dx, dy);
         return enemyCircle;
     }
 
@@ -39,5 +44,14 @@ public class EnemyCircle extends SimpleCircle {
             return true;
         } else
             return false;
+    }
+
+    public void MoveOneStep() {
+        x += dx;
+        y += dy;
+        checkBounds();
+    }
+
+    private void checkBounds() {
     }
 }
