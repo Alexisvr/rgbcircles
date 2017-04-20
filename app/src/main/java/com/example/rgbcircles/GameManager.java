@@ -67,3 +67,5 @@ public class GameManager {
         mainCircle.moveMainCircleWhenTouchAt(x, y);
     }
 }
+
+
