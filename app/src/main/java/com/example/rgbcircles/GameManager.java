@@ -1,8 +1,5 @@
 package com.example.rgbcircles;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
 import java.util.ArrayList;
 
 // тестовый текст для коммита
@@ -70,15 +67,31 @@ public class GameManager {
     }
 
     private void checkCollision() {
+        SimpleCircle circleForDel = null;
         for (EnemyCircle circle : circles) {
             if (mainCircle.isIntersect(circle)) {
-                gameEnd();
+                if (circle.isSmallerThan(mainCircle)) {
+                    mainCircle.growRadius(circle);
+                    circleForDel = circle;
+                    calculateAndSetCirclesColor();
+                    break;
+                } else {
+                    gameEnd("YOU LOSE!");
+                    return;
+                }
             }
+        }
+        if (circleForDel != null) {
+            circles.remove(circleForDel);
+        }
+        if (circles.isEmpty()) {
+            gameEnd("YOU WIN");
         }
 
     }
 
-    private void gameEnd() {
+    private void gameEnd(String text) {
+        canvasView.showMessage(text);
         mainCircle.initRadius();
         initEnemyCircle();
         canvasView.redraw();
